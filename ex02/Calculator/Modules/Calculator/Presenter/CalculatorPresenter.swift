@@ -3,14 +3,14 @@
 //  Calculator
 //
 //  Created by out-nazarov2-ms on 13.09.2021.
-//  
+//
 //
 
 import Foundation
 
 class CalculatorPresenter: ViewToPresenterCalculatorProtocol {
-
     // MARK: Properties
+
     weak var view: PresenterToViewCalculatorProtocol?
     let interactor: PresenterToInteractorCalculatorProtocol?
     let router: PresenterToRouterCalculatorProtocol?
@@ -32,6 +32,7 @@ class CalculatorPresenter: ViewToPresenterCalculatorProtocol {
     var status: Status = .waitForFirstOperand
 
     // MARK: Init
+
     init(view: PresenterToViewCalculatorProtocol, interactor: PresenterToInteractorCalculatorProtocol?, router: PresenterToRouterCalculatorProtocol?) {
         self.view = view
         self.interactor = interactor
@@ -42,11 +43,11 @@ class CalculatorPresenter: ViewToPresenterCalculatorProtocol {
         guard let buttonTitle = buttonTitle else {
             return
         }
-        if(buttonTitle == "AC") {
+        if buttonTitle == "AC" {
             view?.clearHistory()
         }
         switch buttonTitle {
-        case "0"..."9":
+        case "0" ... "9":
             handleDigit(digit: buttonTitle)
         case "=":
             handleResult()
@@ -59,14 +60,14 @@ class CalculatorPresenter: ViewToPresenterCalculatorProtocol {
             view?.clearInput()
             view?.switchACButtonTitle(to: "AC")
         case ",":
-            if output.contains(".") && status != .didCalculation {
+            if output.contains("."), status != .didCalculation {
                 view?.bibError()
             } else {
                 handleDigit(digit: ".")
                 view?.setDisplayText(output)
             }
         case "+⁄−":
-            if status == .waitForSecondOperand || status == .waitForFirstOperand{
+            if status == .waitForSecondOperand || status == .waitForFirstOperand {
                 handlePlusMinus()
                 view?.setDisplayText(output)
             } else {
@@ -136,10 +137,11 @@ class CalculatorPresenter: ViewToPresenterCalculatorProtocol {
         }
     }
 
-    private func handleResult(){
+    private func handleResult() {
         if status == .typingSecondOperand {
             if let operation = operation, let operand = Double(output),
-               let result = calculate(result: result, operation: operation, operand: operand){
+               let result = calculate(result: result, operation: operation, operand: operand)
+            {
                 self.result = result
                 self.operand = operand
                 view?.pushHistoryText(historyText + " \(operation) \(output) = \(String(format: "%g", result))\n")
@@ -149,7 +151,8 @@ class CalculatorPresenter: ViewToPresenterCalculatorProtocol {
             status = .didCalculation
         } else if status == .didCalculation {
             if let operation = operation, let operand = operand,
-               let result = calculate(result: result, operation: operation, operand: operand){
+               let result = calculate(result: result, operation: operation, operand: operand)
+            {
                 self.result = result
                 view?.pushHistoryText(historyText + " \(operation) \(String(format: "%g", operand)) = \(String(format: "%g", result))\n")
                 historyText = String(format: "%g", result)
@@ -158,7 +161,7 @@ class CalculatorPresenter: ViewToPresenterCalculatorProtocol {
         }
     }
 
-    private func handleOperations(operationCharecter: String){
+    private func handleOperations(operationCharecter: String) {
         switch status {
         case .typingFirstOperand, .didCalculation:
             if let result = Double(output) {
@@ -198,7 +201,7 @@ class CalculatorPresenter: ViewToPresenterCalculatorProtocol {
         }
     }
 
-    private func handlePlusMinus(){
+    private func handlePlusMinus() {
         if output.first == "-" {
             output.removeFirst()
         } else {

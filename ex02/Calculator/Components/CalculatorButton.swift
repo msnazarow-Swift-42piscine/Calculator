@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 class OpeationButton: CalculatorButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -15,7 +14,8 @@ class OpeationButton: CalculatorButton {
         titleLabel?.font = .boldSystemFont(ofSize: 40 * verticalTranslation)
     }
 
-    required init?(coder: NSCoder) {
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -27,6 +27,7 @@ class OpeationButton: CalculatorButton {
             titleLabel?.font = .boldSystemFont(ofSize: 40 * verticalTranslation)
         }
     }
+
     override var isHighlighted: Bool {
         didSet {
             backgroundColor = isHighlighted ? backgroundColor?.modified(withAdditionalHue: 0, additionalSaturation: 0, additionalBrightness: 0.2) : backgroundColor?.modified(withAdditionalHue: 0, additionalSaturation: 0, additionalBrightness: -0.2)
@@ -53,9 +54,11 @@ class AdditionButton: CalculatorButton {
         setTitleColor(.black, for: .normal)
     }
 
-    required init?(coder: NSCoder) {
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
     override func layoutSubviews() {
         super.layoutSubviews()
 
@@ -66,8 +69,8 @@ class AdditionButton: CalculatorButton {
         }
     }
 }
-class CalculatorButton: UIButton {
 
+class CalculatorButton: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setTitleColor(.white, for: .normal)
@@ -75,7 +78,9 @@ class CalculatorButton: UIButton {
         backgroundColor = .darkGray
         clipsToBounds = true
     }
-    required init?(coder: NSCoder) {
+
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -83,13 +88,15 @@ class CalculatorButton: UIButton {
         super.layoutSubviews()
         layer.cornerRadius = 0.5 * bounds.size.width
     }
+
     override var isHighlighted: Bool {
         didSet {
             backgroundColor = isHighlighted ? backgroundColor?.modified(withAdditionalHue: 0, additionalSaturation: 0, additionalBrightness: 0.3) : backgroundColor?.modified(withAdditionalHue: 0, additionalSaturation: 0, additionalBrightness: -0.3)
         }
     }
+
     static func generateButton(for key: String) -> CalculatorButton {
-        if ("0"..."9").contains(key) || key == .comma {
+        if ("0" ... "9").contains(key) || key == .comma {
             let button = DigitButton()
             button.setTitle(key, for: .normal)
             return button
@@ -102,10 +109,9 @@ class CalculatorButton: UIButton {
             button.setTitle(key, for: .normal)
             return button
         } else {
-            let button =  CalculatorButton()
+            let button = CalculatorButton()
             button.setTitle(key, for: .normal)
             return button
         }
     }
 }
-

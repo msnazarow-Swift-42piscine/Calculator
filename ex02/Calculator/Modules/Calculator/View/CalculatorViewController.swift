@@ -3,13 +3,12 @@
 //  Calculator
 //
 //  Created by out-nazarov2-ms on 13.09.2021.
-//  
+//
 //
 
 import UIKit
 
 class CalculatorViewController: UIViewController {
-
     // MARK: - Properties
 
     var presenter: ViewToPresenterCalculatorProtocol?
@@ -21,7 +20,7 @@ class CalculatorViewController: UIViewController {
         ["7", "8", "9", "×"],
         ["4", "5", "6", "-"],
         ["1", "2", "3", "+"],
-        ["0", " ", ",", "="]
+        ["0", " ", ",", "="],
     ]
 
     lazy var buttons = (0 ... 19).map { i -> UIButton in
@@ -32,10 +31,10 @@ class CalculatorViewController: UIViewController {
 
     lazy var grid: UIStackView = {
         let grid = UIStackView(arrangedSubviews: (0 ... 4).map { i in {
-            let horisontalStack = UIStackView(arrangedSubviews: (0 ... 3).map { j in buttons[i * 4 + j]})
+            let horisontalStack = UIStackView(arrangedSubviews: (0 ... 3).map { j in buttons[i * 4 + j] })
             horisontalStack.axis = .horizontal
             horisontalStack.alignment = .fill
-            horisontalStack.spacing =  gap
+            horisontalStack.spacing = gap
             horisontalStack.distribution = .fillEqually
             return horisontalStack
         }()
@@ -85,6 +84,7 @@ class CalculatorViewController: UIViewController {
         print(view.frame)
         setupUI()
     }
+
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         optionalConstraint.isActive = false
@@ -98,8 +98,8 @@ class CalculatorViewController: UIViewController {
             displayLabel.font = .systemFont(ofSize: 80 * verticalTranslation)
             historyLabel.isHidden = true
 //            NSLayoutConstraint.deactivate(historyLabel.constraints)
-            if (view.bounds.height / view.bounds.width < 4.0 / 6.0) {
-                optionalConstraint = mainView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, constant:  -2 * gap)
+            if view.bounds.height / view.bounds.width < 4.0 / 6.0 {
+                optionalConstraint = mainView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, constant: -2 * gap)
             } else {
                 optionalConstraint = mainView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, constant: -2 * gap)
             }
@@ -111,10 +111,10 @@ class CalculatorViewController: UIViewController {
             historyLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -gap),
             historyLabel.trailingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: -gap),
         ]
-        constraints.forEach{$0.priority = UILayoutPriority(rawValue: 999)}
+        constraints.forEach { $0.priority = UILayoutPriority(rawValue: 999) }
         NSLayoutConstraint.activate(constraints)
-
     }
+
     // MARK: - SetupUI Methods
 
     private func setupUI() {
@@ -130,7 +130,7 @@ class CalculatorViewController: UIViewController {
                 historyLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -gap),
                 historyLabel.trailingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: -gap),
 //                historyLabel.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, constant: -mainView.frame.width - 2 * gap)
-                historyLabelLeftConstraint
+                historyLabelLeftConstraint,
             ])
         }
         buttons[17].backgroundColor = .clear
@@ -142,29 +142,29 @@ class CalculatorViewController: UIViewController {
         if UIApplication.shared.statusBarOrientation.isLandscape {
             optionalConstraint = mainView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 4.0 / 6.0, constant: -gap)
         } else {
-            if (view.frame.width / view.frame.height < 4.0 / 6.0) {
-                optionalConstraint = mainView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, constant:  -2 * gap)
+            if view.frame.width / view.frame.height < 4.0 / 6.0 {
+                optionalConstraint = mainView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, constant: -2 * gap)
             } else {
-                optionalConstraint = mainView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, constant:  -2 * gap)
+                optionalConstraint = mainView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, constant: -2 * gap)
             }
         }
 
-        //TODO не работает в landscape
+        // TODO: не работает в landscape
         NSLayoutConstraint.activate([
-            mainView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant:  -gap),
-            mainView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant:  -0.5 * gap),
+            mainView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -gap),
+            mainView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -0.5 * gap),
             grid.widthAnchor.constraint(equalTo: grid.heightAnchor, multiplier: 0.8),
             displayLabel.heightAnchor.constraint(equalTo: grid.arrangedSubviews.first!.heightAnchor),
             optionalConstraint,
         ])
     }
 
-    @objc private func buttonDidTapped(button: UIButton){
+    @objc private func buttonDidTapped(button: UIButton) {
         presenter?.buttonDidTapped(button.titleLabel?.text)
     }
 }
 
-extension CalculatorViewController: PresenterToViewCalculatorProtocol{
+extension CalculatorViewController: PresenterToViewCalculatorProtocol {
     // TODO: Implement View Output Methods
     func setDisplayText(_ text: String) {
         displayLabel.text = text
@@ -173,19 +173,18 @@ extension CalculatorViewController: PresenterToViewCalculatorProtocol{
     func pushHistoryText(_ text: String) {
         historyLabel.text = (historyLabel.text ?? "") + text
     }
+
     func clearInput() {
         displayLabel.text = "0"
     }
-    
+
     func getResult() -> Double? {
         return Double(displayLabel.text ?? "")
     }
 
-    func bibError() {
+    func bibError() {}
 
-    }
-
-    func switchACButtonTitle(to title: String){
+    func switchACButtonTitle(to title: String) {
         buttons[0].setTitle(title, for: .normal)
     }
 

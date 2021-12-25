@@ -3,16 +3,15 @@
 //  Calculator
 //
 //  Created by out-nazarov2-ms on 13.09.2021.
-//  
+//
 //
 
 import UIKit
 
-enum CalculatorAssembly{
-    
+enum CalculatorAssembly {
     // MARK: Static methods
-    static func createModule() -> UIViewController {
 
+    static func createModule() -> UIViewController {
         let viewController = CalculatorViewController()
         let router = CalculatorRouter(view: viewController)
         let interactor = CalculatorInteractor()

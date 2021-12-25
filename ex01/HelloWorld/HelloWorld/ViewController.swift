@@ -31,7 +31,7 @@ class ViewController: UIViewController {
             label.bottomAnchor.constraint(equalTo: button.topAnchor),
             label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             button.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            button.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
         ])
     }
 
@@ -40,4 +40,3 @@ class ViewController: UIViewController {
         print("Hello World!")
     }
 }
-
