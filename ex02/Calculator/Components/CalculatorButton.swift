@@ -10,7 +10,8 @@ import UIKit
 class OpeationButton: CalculatorButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .orange
+        setBackgroundImage(UIImage(color: .orange), for: .normal)
+        setBackgroundImage(UIImage(color: .orange.modified(additionalBrightness: 0.3)), for: .highlighted)
         titleLabel?.font = .boldSystemFont(ofSize: 40 * verticalTranslation)
     }
 
@@ -25,12 +26,6 @@ class OpeationButton: CalculatorButton {
             titleLabel?.font = .boldSystemFont(ofSize: 30 * verticalTranslation)
         } else {
             titleLabel?.font = .boldSystemFont(ofSize: 40 * verticalTranslation)
-        }
-    }
-
-    override var isHighlighted: Bool {
-        didSet {
-            backgroundColor = isHighlighted ? backgroundColor?.modified(withAdditionalHue: 0, additionalSaturation: 0, additionalBrightness: 0.2) : backgroundColor?.modified(withAdditionalHue: 0, additionalSaturation: 0, additionalBrightness: -0.2)
         }
     }
 }
@@ -49,7 +44,8 @@ class DigitButton: CalculatorButton {
 class AdditionButton: CalculatorButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .lightGray
+        setBackgroundImage(UIImage(color: .lightGray), for: .normal)
+        setBackgroundImage(UIImage(color: .lightGray.modified(additionalBrightness: 0.3)), for: .highlighted)
         titleLabel?.font = .systemFont(ofSize: 30 * verticalTranslation)
         setTitleColor(.black, for: .normal)
     }
@@ -75,7 +71,8 @@ class CalculatorButton: UIButton {
         super.init(frame: frame)
         setTitleColor(.white, for: .normal)
         titleLabel?.font = .systemFont(ofSize: 40 * verticalTranslation)
-        backgroundColor = .darkGray
+        setBackgroundImage(UIImage(color: .darkGray), for: .normal)
+        setBackgroundImage(UIImage(color: .darkGray.modified(additionalBrightness: 0.3)), for: .highlighted)
         clipsToBounds = true
     }
 
@@ -87,12 +84,6 @@ class CalculatorButton: UIButton {
     override func layoutSubviews() {
         super.layoutSubviews()
         layer.cornerRadius = 0.5 * bounds.size.width
-    }
-
-    override var isHighlighted: Bool {
-        didSet {
-            backgroundColor = isHighlighted ? backgroundColor?.modified(withAdditionalHue: 0, additionalSaturation: 0, additionalBrightness: 0.3) : backgroundColor?.modified(withAdditionalHue: 0, additionalSaturation: 0, additionalBrightness: -0.3)
-        }
     }
 
     static func generateButton(for key: String) -> CalculatorButton {

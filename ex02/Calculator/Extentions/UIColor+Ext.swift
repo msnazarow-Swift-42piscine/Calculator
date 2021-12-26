@@ -8,7 +8,7 @@
 import UIKit
 
 extension UIColor {
-    func modified(withAdditionalHue hue: CGFloat, additionalSaturation: CGFloat, additionalBrightness: CGFloat) -> UIColor {
+    func modified(withAdditionalHue hue: CGFloat = 0, additionalSaturation: CGFloat = 0, additionalBrightness: CGFloat) -> UIColor {
         var currentHue: CGFloat = 0.0
         var currentSaturation: CGFloat = 0.0
         var currentBrigthness: CGFloat = 0.0

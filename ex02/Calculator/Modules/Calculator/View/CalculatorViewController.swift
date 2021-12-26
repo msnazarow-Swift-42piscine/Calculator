@@ -58,13 +58,14 @@ class CalculatorViewController: UIViewController {
         return displayLabel
     }()
 
-    let historyLabel: UILabel = {
-        let historyLabel = UILabel()
-        historyLabel.numberOfLines = 0
-        historyLabel.translatesAutoresizingMaskIntoConstraints = false
-        historyLabel.layer.masksToBounds = true
-        historyLabel.textColor = .white
-        return historyLabel
+    let historyTextView: UITextView = {
+        let textView = UITextView()
+        textView.backgroundColor = .clear
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.layer.masksToBounds = true
+        textView.textColor = .white
+        textView.isEditable = false
+        return textView
     }()
 
     lazy var mainView: UIStackView = {
@@ -91,12 +92,12 @@ class CalculatorViewController: UIViewController {
 //        NSLayoutConstraint.deactivate(historyLabel.constraints)
         if UIDevice.current.orientation.isLandscape {
             displayLabel.font = .systemFont(ofSize: 50 * verticalTranslation)
-            historyLabel.isHidden = false
+            historyTextView.isHidden = false
             optionalConstraint = mainView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 4.0 / 6.0, constant: -gap)
 
         } else {
             displayLabel.font = .systemFont(ofSize: 80 * verticalTranslation)
-            historyLabel.isHidden = true
+            historyTextView.isHidden = true
 //            NSLayoutConstraint.deactivate(historyLabel.constraints)
             if view.bounds.height / view.bounds.width < 4.0 / 6.0 {
                 optionalConstraint = mainView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, constant: -2 * gap)
@@ -106,10 +107,10 @@ class CalculatorViewController: UIViewController {
         }
         optionalConstraint.isActive = true
         let constraints = [
-            historyLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            historyLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: gap),
-            historyLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -gap),
-            historyLabel.trailingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: -gap),
+            historyTextView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            historyTextView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: gap),
+            historyTextView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -gap),
+            historyTextView.trailingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: -gap),
         ]
         constraints.forEach { $0.priority = UILayoutPriority(rawValue: 999) }
         NSLayoutConstraint.activate(constraints)
@@ -119,16 +120,16 @@ class CalculatorViewController: UIViewController {
 
     private func setupUI() {
         view.addSubview(mainView)
-        view.addSubview(historyLabel)
-        let historyLabelLeftConstraint = historyLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: gap)
+        view.addSubview(historyTextView)
+        let historyLabelLeftConstraint = historyTextView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: gap)
         historyLabelLeftConstraint.priority = UILayoutPriority(rawValue: 998)
         if UIApplication.shared.statusBarOrientation.isPortrait {
-            historyLabel.isHidden = true
+            historyTextView.isHidden = true
         } else {
             NSLayoutConstraint.activate([
-                historyLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: gap),
-                historyLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -gap),
-                historyLabel.trailingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: -gap),
+                historyTextView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: gap),
+                historyTextView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -gap),
+                historyTextView.trailingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: -gap),
 //                historyLabel.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, constant: -mainView.frame.width - 2 * gap)
                 historyLabelLeftConstraint,
             ])
@@ -171,7 +172,7 @@ extension CalculatorViewController: PresenterToViewCalculatorProtocol {
     }
 
     func pushHistoryText(_ text: String) {
-        historyLabel.text = (historyLabel.text ?? "") + text
+        historyTextView.text = (historyTextView.text ?? "") + text
     }
 
     func clearInput() {
@@ -189,6 +190,6 @@ extension CalculatorViewController: PresenterToViewCalculatorProtocol {
     }
 
     func clearHistory() {
-        historyLabel.text = ""
+        historyTextView.text = ""
     }
 }

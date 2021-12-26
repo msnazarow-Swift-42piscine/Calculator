@@ -16,6 +16,7 @@
 		3E24978526EF427F00FACCB5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E24978426EF427F00FACCB5 /* AppDelegate.swift */; };
 		3E24978E26EF428100FACCB5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E24978D26EF428100FACCB5 /* Assets.xcassets */; };
 		3E24979126EF428100FACCB5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E24978F26EF428100FACCB5 /* LaunchScreen.storyboard */; };
+		3E43E4E22778859000263B88 /* UIImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E43E4E12778859000263B88 /* UIImage+Ext.swift */; };
 		3E8861C526F2BE68005D86CB /* CalculatorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8861C426F2BE68005D86CB /* CalculatorButton.swift */; };
 		3E8861CA26F38A17005D86CB /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8861C926F38A17005D86CB /* String+Ext.swift */; };
 		3EC733C826F88A4F001D1760 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC733C726F88A4F001D1760 /* UIColor+Ext.swift */; };
@@ -33,6 +34,7 @@
 		3E24978D26EF428100FACCB5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3E24979026EF428100FACCB5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3E24979226EF428100FACCB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3E43E4E12778859000263B88 /* UIImage+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Ext.swift"; sourceTree = "<group>"; };
 		3E8861C426F2BE68005D86CB /* CalculatorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorButton.swift; sourceTree = "<group>"; };
 		3E8861C926F38A17005D86CB /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 		3EC733C726F88A4F001D1760 /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
@@ -161,6 +163,7 @@
 			children = (
 				3E8861C926F38A17005D86CB /* String+Ext.swift */,
 				3EC733C726F88A4F001D1760 /* UIColor+Ext.swift */,
+				3E43E4E12778859000263B88 /* UIImage+Ext.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -244,6 +247,7 @@
 				3EC733C826F88A4F001D1760 /* UIColor+Ext.swift in Sources */,
 				3E1A069926EF5BED00862A13 /* CalculatorViewController.swift in Sources */,
 				3E1A069826EF5BED00862A13 /* CalculatorRouter.swift in Sources */,
+				3E43E4E22778859000263B88 /* UIImage+Ext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
